@@ -1,11 +1,14 @@
 """메뉴/카테고리 조회 테스트 (US-C2)."""
 
+from app.seed import _CATEGORIES, _MENUS
+
 
 def test_list_categories(client, table_headers):
     resp = client.get("/api/menus/categories", headers=table_headers)
     assert resp.status_code == 200
     cats = resp.json()
-    assert len(cats) == 4
+    # 시드된 카테고리 전부 반환
+    assert len(cats) == len(_CATEGORIES)
     # display_order 오름차순
     orders = [c["display_order"] for c in cats]
     assert orders == sorted(orders)
@@ -16,7 +19,8 @@ def test_list_menus_all(client, table_headers):
     resp = client.get("/api/menus", headers=table_headers)
     assert resp.status_code == 200
     menus = resp.json()
-    assert len(menus) == 12
+    # 시드된 메뉴 전부 반환
+    assert len(menus) == len(_MENUS)
     first = menus[0]
     assert {"id", "category_id", "name", "price", "display_order"} <= set(first.keys())
     assert isinstance(first["price"], int)

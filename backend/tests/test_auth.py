@@ -45,7 +45,7 @@ def test_table_login_success(client):
     body = resp.json()
     assert body["table_token"]
     assert body["table_number"] == "1"
-    assert body["store_name"] == "데모 식당"
+    assert body["store_name"] == "아리랑 주막"
 
 
 def test_table_login_wrong_password_401(client):

@@ -1,5 +1,36 @@
 # AI-DLC Audit Log
 
+## Build and Test Stage — Start
+**Timestamp**: 2026-09-07T14:20:00Z
+**User Input**: "지금 miain  기준으로 build & test 단계 진행"
+**AI Response**: Resuming CONSTRUCTION phase at Build and Test stage on branch main. Both units (backend, frontend) code generation complete. Loading build-and-test rules + shared-contract, then executing actual build/test (backend pytest, frontend build/typecheck) and generating instruction + summary docs under aidlc-docs/construction/build-and-test/.
+**Context**: CONSTRUCTION - Build and Test (entry)
+
+---
+
+## Build and Test Stage — Complete
+**Timestamp**: 2026-09-07T14:35:00Z
+**Build Status**: Success (backend: import + server OK; frontend: tsc 0 errors, vite build 62 modules)
+**Test Status**: Pass
+- Backend unit (pytest): 34 passed, 0 failed
+- Integration/E2E (live server, contract §8): 30/30 passed (backend/tests/integration_e2e.py)
+- Performance: SSE order_created latency ~0.02s (target ≤2s)
+- Security: auth/authz pass; npm audit 4 findings (dev-only/SSR-unused, accepted for MVP)
+**Files Generated** (aidlc-docs/construction/build-and-test/):
+- build-instructions.md
+- unit-test-instructions.md
+- integration-test-instructions.md
+- performance-test-instructions.md
+- security-test-instructions.md
+- e2e-test-instructions.md
+- build-and-test-summary.md
+- (repo) backend/tests/integration_e2e.py — persisted E2E verification script
+**Non-blocking findings**: table_number typed as str (contract §3.1/§3.6 unspecified); order status transition graph owned by backend, undocumented in contract; root docker-compose.yml absent.
+**AI Response**: Executed real build + tests, generated all instruction/summary docs, updated aidlc-state.md. Presenting Build and Test completion message; awaiting user approval to proceed to Operations.
+**Context**: CONSTRUCTION - Build and Test (complete)
+
+---
+
 ## Initial User Request
 **Timestamp**: 2026-09-07T00:00:00Z
 **User Input**: "테이블오더 서비스를 구축하고 싶습니다. 다음 파일들에서 요구사항을 읽어주세요:

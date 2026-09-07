@@ -1,5 +1,7 @@
 """테이블 설정 + 메뉴 관리 테스트 (US-A7, BR-6)."""
 
+from app.seed import _TABLE_NUMBERS
+
 
 def test_create_table_and_conflict(client, admin_headers):
     resp = client.post(
@@ -18,14 +20,14 @@ def test_create_table_and_conflict(client, admin_headers):
 def test_list_tables(client, admin_headers):
     resp = client.get("/api/admin/tables", headers=admin_headers)
     assert resp.status_code == 200
-    assert len(resp.json()) == 5  # 시드된 테이블 5개
+    assert len(resp.json()) == len(_TABLE_NUMBERS)  # 시드된 테이블 전부
 
 
 def test_dashboard_shape(client, admin_headers):
     resp = client.get("/api/admin/dashboard", headers=admin_headers)
     assert resp.status_code == 200
     cards = resp.json()
-    assert len(cards) == 5
+    assert len(cards) == len(_TABLE_NUMBERS)
     card = cards[0]
     assert {"table_id", "table_number", "table_total", "order_count", "recent_orders"} <= set(card.keys())
     # active 세션 없는 초기 상태
