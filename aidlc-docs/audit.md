@@ -208,6 +208,31 @@ AI-DLC 워크플로우를 시작해봅시다."
 
 ---
 
+## CONSTRUCTION - Frontend Unit Functional Design Started (parallel track)
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: "내가 frontend 하기로 했어, ai dlc에 (https://ai-dlc-aws-ds.notion.site/AI-DLC-1Day-Workshop-f75599edf4fa839a9f03019d649c0511) 이거 참조해서 진행해봐"
+**AI Response**: User is taking the frontend unit (Unit 2) on this parallel track. Frozen shared contract (v1.0) is the baseline. Entered CONSTRUCTION per-unit loop for `frontend`. Loaded functional-design.md. Re-read shared-contract (integration-contract, api-contract, sse-contract, domain-entities, business-rules) + stories + constraints. Per functional-design Step 3, presenting frontend-specific technical clarifying questions (styling, state management, language JS/TS, dev API base/proxy) that are not yet fixed by the contract before generating functional design artifacts.
+**Context**: CONSTRUCTION - Frontend Unit Functional Design (awaiting technical decisions)
+
+---
+
+## CONSTRUCTION - Frontend Functional Design Technical Decisions Received
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: (AskUserQuestion answers) Styling=Tailwind CSS, State=React Context + hooks, Language=TypeScript (.tsx), Dev API=Vite proxy → localhost:8000
+**AI Response**: All valid and mutually consistent (lightweight MVP-friendly frontend stack). No ambiguity. Generating frontend unit Functional Design artifacts: frontend-functional-design-plan.md + construction/frontend/functional-design/{frontend-components.md, frontend-logic-model.md, frontend-validation-rules.md}. Domain entities & business rules already fixed in shared-contract (frontend consumes API response shapes only). Will present at approval gate before Code Generation.
+**Context**: CONSTRUCTION - Frontend Unit Functional Design (generation)
+
+---
+
+## CONSTRUCTION - Frontend Unit Code Generation Complete
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: "aidlc-state.md를 참조해서 frontend 개발" (mid-turn) — 승인 게이트 미대기, 코드까지 개발 진행 지시로 해석.
+**AI Response**: Generated frontend Functional Design blueprint (construction/frontend/functional-design/frontend-components.md) then proceeded directly to Code Generation per user directive. Built full `frontend/` React 18 + Vite 5 + TypeScript(strict) + Tailwind app: ApiClient(REST+SSE, fetch+ReadableStream stream parser w/ reconnect+resync), AuthContext(admin JWT + table session, 401→re-login), CartContext(localStorage), shared UI (Modal/ConfirmDialog/Toast/StatusBadge/Spinner), customer flow (TableSetup US-C1, MenuScreen US-C2, CartDrawer US-C3, OrderConfirm/OrderSuccess US-C4, OrderHistory US-C5), admin flow (AdminLogin US-A1, Dashboard+useDashboard SSE US-A2, TableOrdersPanel status/delete/close US-A3/A4/A5, HistoryModal US-A6, MenuManage+MenuForm US-A7, TableSettings US-A7). All 12 stories covered. data-testid on interactive elements. Vite proxy /api→:8000 (dev) + nginx.conf/Dockerfile (deploy, SSE buffering off). Verified: `npm install` ok, `npm run build`(tsc strict + vite) PASSED (62 modules), dev server returns HTTP 200. Updated aidlc-state.md + frontend-functional-design-plan.md checkboxes. Not committed (awaiting user instruction).
+**Context**: CONSTRUCTION - Frontend Unit complete (parallel track); awaiting Build & Test integration with backend
+**Prompts Logged**: N/A (development directive, no approval gate requested)
+
+---
+
 ## CONSTRUCTION - backend Code Generation START (Part 1 Planning)
 **Timestamp**: 2026-09-07T00:00:00Z
 **User Input**: "aidlc-docs/aidlc-state.md를 확인하고, backend  개발을 시작하세요"

@@ -74,10 +74,21 @@
 - **Execution mode**: 공통 API 계약 우선 확정 → backend/frontend **병렬** 진행 → Build and Test 통합
 - [x] Shared API Contract (contract-first Functional Design) - APPROVED (frozen baseline)
 - [x] Code Generation — Unit 1 `backend` — Part 1 (Planning) APPROVED
-- [x] Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE (34 pytest passed, E2E smoke OK) — awaiting review
-- [ ] Code Generation — Unit 2 `frontend` (per-unit)
-- [ ] Build and Test - EXECUTE
-- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 backend 생성 시 별도 stage 없이 계약을 정확히 구현함. frontend는 별도로 진행 예정.
+- [x] Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE (34 pytest passed, E2E smoke OK)
+- [x] Code Generation — Unit 2 `frontend` — COMPLETE (`frontend/` React+Vite+TS+Tailwind, US-C1~C5·US-A1~A7 전부, build/typecheck 통과, dev 서버 HTTP 200)
+- [ ] Build and Test - EXECUTE (backend·frontend 통합 후)
+- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 각 유닛 생성 시 별도 stage 없이 계약을 정확히 구현. frontend는 경량 Functional Design 블루프린트(frontend-components.md)만 별도 작성.
+
+### Backend Unit 구현 요약 (backend/)
+- FastAPI 단일 프로세스, 34 pytest 통과, E2E 스모크 확인. app 17파일 + 라우터 7 + 테스트 7.
+
+### Frontend Unit 구현 요약 (frontend/)
+- Stack: React 18 + Vite 5 + TypeScript(strict) + Tailwind CSS, React Context(Auth/Cart), fetch 기반 ApiClient(REST + SSE)
+- 라우팅: 고객 `/`, 관리자 `/admin/*` (대시보드/메뉴/테이블)
+- SSE: EventSource 대신 fetch+ReadableStream 파서(헤더 인증), 4개 이벤트 증분 갱신 + 재연결 시 dashboard 재동기화
+- 개발 연결: Vite proxy `/api` → `:8000` / 배포: nginx `/api` → `backend:8000` (SSE 버퍼링 off)
+- 자동화: 상호작용 요소 `data-testid` 부여
+- 검증: `npm run build` 통과(62 모듈), dev 서버 HTTP 200
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations - PLACEHOLDER
