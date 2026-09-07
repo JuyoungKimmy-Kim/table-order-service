@@ -73,12 +73,14 @@
 ### 🟢 CONSTRUCTION PHASE
 - **Execution mode**: 공통 API 계약 우선 확정 → backend/frontend **병렬** 진행 → Build and Test 통합
 - [x] Shared API Contract (contract-first Functional Design) - APPROVED (frozen baseline)
-- **Frontend Unit (Unit 2) — this track**:
-  - [x] Functional Design (frontend) - frontend-components.md 블루프린트
-  - [x] Code Generation (frontend) - `frontend/` React+Vite+TS+Tailwind 앱 구현 (US-C1~C5, US-A1~A7 전부), build/typecheck 통과
-  - NFR/Infra Design: 경량 — 결정이 이미 계약/기술스택에 반영(로컬 MVP), 별도 문서 생략
-- **Backend Unit (Unit 1)**: 외부 병렬 트랙에서 진행 (별도 환경)
+- [x] Code Generation — Unit 1 `backend` — Part 1 (Planning) APPROVED
+- [x] Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE (34 pytest passed, E2E smoke OK)
+- [x] Code Generation — Unit 2 `frontend` — COMPLETE (`frontend/` React+Vite+TS+Tailwind, US-C1~C5·US-A1~A7 전부, build/typecheck 통과, dev 서버 HTTP 200)
 - [ ] Build and Test - EXECUTE (backend·frontend 통합 후)
+- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 각 유닛 생성 시 별도 stage 없이 계약을 정확히 구현. frontend는 경량 Functional Design 블루프린트(frontend-components.md)만 별도 작성.
+
+### Backend Unit 구현 요약 (backend/)
+- FastAPI 단일 프로세스, 34 pytest 통과, E2E 스모크 확인. app 17파일 + 라우터 7 + 테스트 7.
 
 ### Frontend Unit 구현 요약 (frontend/)
 - Stack: React 18 + Vite 5 + TypeScript(strict) + Tailwind CSS, React Context(Auth/Cart), fetch 기반 ApiClient(REST + SSE)
@@ -92,7 +94,7 @@
 - [ ] Operations - PLACEHOLDER
 
 ## Current Status
-- **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Workflow Planning (awaiting approval)
-- **Next Stage**: Application Design
-- **Status**: Ready to proceed pending approval
+- **Lifecycle Phase**: CONSTRUCTION
+- **Current Stage**: Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE — awaiting code review/approval
+- **Next Stage**: Unit 2 `frontend` Code Generation → Build and Test
+- **Status**: backend/ 전체 생성(app 17파일 + 라우터 7 + 테스트 7), 34 pytest 통과, E2E 스모크 확인. 사용자 리뷰 대기.

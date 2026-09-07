@@ -233,3 +233,35 @@ AI-DLC 워크플로우를 시작해봅시다."
 
 ---
 
+## CONSTRUCTION - backend Code Generation START (Part 1 Planning)
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: "aidlc-docs/aidlc-state.md를 확인하고, backend  개발을 시작하세요"
+**AI Response**: Read aidlc-state.md and all frozen shared-contract artifacts (integration-contract, domain-entities, api-contract, sse-contract, business-rules), component-methods, story-map, stories. Confirmed CONSTRUCTION phase with Shared API Contract APPROVED (frozen v1.0 baseline). NOTE: prior session recorded backend/frontend to be developed EXTERNALLY; user now directs backend development IN THIS environment — treating this as a direction change, resuming per-unit Code Generation for Unit 1 (backend) here. Extensions Security/Property-Based/Resiliency are Disabled per Extension Configuration table (not enforced). Entering Code Generation Part 1: authoring aidlc-docs/construction/plans/backend-code-generation-plan.md (numbered steps: project setup, persistence+models, seed, auth, menu, order/session, table-admin, SSE/realtime, dashboard, app wiring, tests, deploy artifacts) with story traceability, then presenting for approval before Part 2 generation.
+**Context**: CONSTRUCTION - Code Generation (backend) Part 1 Planning
+
+---
+
+## CONSTRUCTION - backend Code Generation Plan APPROVAL PROMPT
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: (승인 대기 — 아직 없음)
+**AI Response**: Created aidlc-docs/construction/plans/backend-code-generation-plan.md (17 numbered steps, ~30 files: FastAPI app under backend/ — config/database/models(9 entities)/schemas/security/deps/seed/realtime SSE broker/helpers + 7 routers covering all 18 contract endpoints + pytest tests + Dockerfile/README). Full story traceability (US-C1,C2,C4,C5, US-A1..A7) and BR-1..BR-9 mapping included. Tech stack: FastAPI/SQLAlchemy2/Pydantic v2/python-jose/passlib[bcrypt]/sse-starlette/pytest. Updated aidlc-state.md Current Status to CONSTRUCTION - Code Generation backend Part 1. Presenting 2-option completion message (Request Changes / Continue to generation) and WAITING for explicit approval before Part 2.
+**Context**: CONSTRUCTION - Code Generation (backend) Part 1 — awaiting plan approval
+
+---
+
+## CONSTRUCTION - backend Code Generation Plan APPROVED (start Part 2)
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: "승인"
+**AI Response**: Plan approved. Marked Code Generation Part 1 (Planning) complete. Beginning Part 2 generation of Unit 1 backend, executing backend-code-generation-plan.md steps 1-17 sequentially under backend/, updating plan checkboxes [x] as each step completes. Tests generated (not executed here — executed in Build and Test).
+**Context**: CONSTRUCTION - Code Generation (backend) Part 2 Generation
+
+---
+
+## CONSTRUCTION - backend Code Generation Part 2 COMPLETE
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: (해당 없음 — 생성 실행)
+**AI Response**: Executed all 17 plan steps. Generated backend/ FastAPI app: config/database/models(9 entities)/schemas/security/deps/seed(store1/admin1/4 cats/12 menus/5 tables)/realtime(SSE broker)/helpers + 7 routers implementing all 18 contract endpoints + 4 SSE events. Generated 7 pytest files (conftest + 6 suites). Installed deps in temp venv (Python 3.12), ran pytest → 34 passed. Ran E2E smoke against live uvicorn: health OK, admin/table login OK, menus=12, order create → order_number=T3-0001 total=16000 w/ snapshot items, dashboard reflects table_total=16000 order_count=1. Marked all plan checkboxes [x]. Wrote code summary to aidlc-docs/construction/backend/code/code-summary.md. Updated aidlc-state.md (backend Code Gen Part 1+2 complete). Cleaned venv/db. Extensions Security/Property-Based/Resiliency remained Disabled (N/A, not enforced). Presenting 2-option completion message for review.
+**Context**: CONSTRUCTION - Code Generation (backend) Part 2 COMPLETE — awaiting code review
+
+---
+
