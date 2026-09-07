@@ -1,0 +1,90 @@
+# AI-DLC State Tracking
+
+## Project Information
+- **Project Type**: Greenfield
+- **Start Date**: 2026-09-07T00:00:00Z
+- **Current Stage**: CONSTRUCTION - Shared API Contract APPROVED (frozen baseline). backend/frontend developed externally in parallel against shared-contract.
+
+## Application Design Decisions
+- **Backend layering**: 단순형 (Router에서 직접 DB 접근; 재사용 로직은 헬퍼로 분리)
+- **Frontend**: 단일 React 앱, 라우팅으로 고객(`/`)·관리자(`/admin`) 분리
+- **Auth**: 통합 AuthComponent (관리자 JWT + 테이블 세션)
+- **Order/Session**: 통합 OrderComponent (주문 CRUD/상태 + 테이블 세션 라이프사이클)
+- **SSE**: 인메모리 pub/sub (단일 프로세스)
+- **API docs**: FastAPI 자동 OpenAPI
+
+## Units Generation Decisions
+- **분해 축**: 계층 기준(Layer), 2개 유닛 + 선행 공통 API 계약
+- **Unit 1 — backend**: FastAPI 전체(Auth, Menu, Order/Session, TableAdmin, SSE, Persistence, 시딩) → `backend/`
+- **Unit 2 — frontend**: React 단일 앱(고객 `/` + 관리자 `/admin`, ApiClient) → `frontend/`
+- **진행 방식**: 공통 API/SSE 계약 우선 확정 → 두 유닛 병렬
+- **디렉터리**: 루트 `backend/`, `frontend/`, `docker-compose.yml`
+- **공유 소유권**: DB 모델=backend, ApiClient=frontend
+
+## Workspace State
+- **Existing Code**: No
+- **Programming Languages**: None detected
+- **Build System**: None detected
+- **Project Structure**: Empty (requirements docs only)
+- **Reverse Engineering Needed**: No
+- **Workspace Root**: /Users/juyoungkim/dev/table-order-service
+
+## Code Location Rules
+- **Application Code**: Workspace root (NEVER in aidlc-docs/)
+- **Documentation**: aidlc-docs/ only
+- **Structure patterns**: See code-generation.md Critical Rules
+
+## Input Requirements Documents
+- requirements/table-order-requirements.md (테이블오더 서비스 요구사항 정의서)
+- requirements/constraints.md (구현 예외사항 / 제외 기능)
+
+## Extension Configuration
+| Extension | Enabled | Decided At |
+|---|---|---|
+| Security Baseline | No | Requirements Analysis |
+| Property-Based Testing | No | Requirements Analysis |
+| Resiliency Baseline | No | Requirements Analysis |
+
+## Technical Decisions (from Requirements Analysis)
+- **Backend**: Python (FastAPI)
+- **Frontend**: React (Vite + React), 고객용 UI + 관리자용 UI
+- **Database**: SQLite (경량 관계형)
+- **Deployment Target**: 로컬 (Docker Compose, MVP/데모 목적)
+- **Real-time Transport**: Server-Sent Events (SSE)
+- **Scope**: MVP 핵심 기능 (요구사항 문서 4장)
+- **Seed Data**: 데모용 샘플 데이터 시딩 포함
+
+## Execution Plan Summary
+- **Stages to Execute**: Application Design, Units Generation, Functional Design, NFR Requirements, NFR Design, Infrastructure Design (경량), Code Generation, Build and Test
+- **Stages to Skip**: Reverse Engineering (Greenfield)
+- **Risk Level**: Medium
+
+## Stage Progress
+
+### 🔵 INCEPTION PHASE
+- [x] Workspace Detection
+- [x] Reverse Engineering (SKIPPED — Greenfield)
+- [x] Requirements Analysis
+- [x] User Stories
+- [x] Workflow Planning (approved)
+- [x] Application Design - EXECUTE (approved)
+- [x] Units Generation - EXECUTE (approved)
+
+### 🟢 CONSTRUCTION PHASE
+- **Execution mode**: 공통 API 계약 우선 확정 → backend/frontend **병렬** 진행 → Build and Test 통합
+- [x] Shared API Contract (contract-first Functional Design) - APPROVED (frozen baseline)
+- [ ] Functional Design - EXECUTE (per-unit, **외부 병렬 개발**: backend·frontend 각자 환경)
+- [ ] NFR Requirements - EXECUTE (per-unit)
+- [ ] NFR Design - EXECUTE (per-unit)
+- [ ] Infrastructure Design - EXECUTE (per-unit, 경량)
+- [ ] Code Generation - EXECUTE (per-unit)
+- [ ] Build and Test - EXECUTE
+
+### 🟡 OPERATIONS PHASE
+- [ ] Operations - PLACEHOLDER
+
+## Current Status
+- **Lifecycle Phase**: INCEPTION
+- **Current Stage**: Workflow Planning (awaiting approval)
+- **Next Stage**: Application Design
+- **Status**: Ready to proceed pending approval
