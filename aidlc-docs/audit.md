@@ -200,3 +200,11 @@ AI-DLC 워크플로우를 시작해봅시다."
 
 ---
 
+## CONSTRUCTION - Integration Contract Document Created
+**Timestamp**: 2026-09-07T00:00:00Z
+**User Input**: "유닛 간 통합을 위한 Integration Contract 문서를 만들어줘. 각 유닛의 API 인터페이스 (endpoint, request/response 스펙), 공유 데이터 모델, 이벤트 규약을 정의해줘. 모든 팀원이 이 규약을 기준으로 개발할 거야."
+**AI Response**: Created aidlc-docs/construction/shared-contract/integration-contract.md as the single team-facing master contract consolidating the existing shared-contract docs. Sections: (1) unit boundaries + global conventions, (2) shared data model integration view, (3) full REST interface tables (all 18 endpoints w/ auth, request, response, errors), (4) SSE event contract (4 events), (5) end-to-end integration flows, (6) contract-compliance rules per unit, (7) change control w/ version table (v1.0 frozen 2026-09-07), (8) integration verification checklist, (9) story↔interface traceability. Links to source docs (domain-entities/api-contract/sse-contract/business-rules). Committed earlier baseline already pushed; this doc pending next commit if requested.
+**Context**: CONSTRUCTION - Integration Contract (team baseline for parallel dev)
+
+---
+
