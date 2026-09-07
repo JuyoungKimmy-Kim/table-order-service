@@ -83,7 +83,11 @@
   - Performance: SSE `order_created` 지연 ~0.02s (목표 ≤2s 충족)
   - Security: 인증/인가 통과, `npm audit` 4건(dev-only/SSR-미사용, MVP 수용)
   - 산출물: `aidlc-docs/construction/build-and-test/` (build/unit/integration/performance/security/e2e-instructions + summary)
-- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 각 유닛 생성 시 별도 stage 없이 계약을 정확히 구현. frontend는 경량 Functional Design 블루프린트(frontend-components.md)만 별도 작성.
+- [x] Infrastructure Design (경량) - COMPLETE (루트 `docker-compose.yml`)
+  - backend(FastAPI :8000) + frontend(nginx :8080, `/api`→backend 프록시, SSE 버퍼링 off), SQLite named volume(`backend_data`), backend healthcheck + frontend depends_on(healthy)
+  - backend Dockerfile에 `/app/data` 생성(DB 영속), README(루트)에 compose 실행법 반영
+  - 검증: `docker compose up --build` 기동 성공(backend healthy) → 8080 SPA 200, `/api` 프록시 경유 로그인/메뉴(아리랑 주막, 12개) 확인
+- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 각 유닛 생성 시 별도 stage 없이 계약을 정확히 구현. frontend는 경량 Functional Design 블루프린트(frontend-components.md)만 별도 작성. Infra는 위 docker-compose로 명시화.
 
 ### Backend Unit 구현 요약 (backend/)
 - FastAPI 단일 프로세스, 34 pytest 통과, E2E 스모크 확인. app 17파일 + 라우터 7 + 테스트 7.
@@ -100,7 +104,7 @@
 - [ ] Operations - PLACEHOLDER
 
 ## Current Status
-- **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Build and Test — COMPLETE — awaiting user review/approval
+- **Lifecycle Phase**: CONSTRUCTION (필수 stage 전부 완료) → Operations 준비
+- **Current Stage**: Infrastructure Design(docker-compose) COMPLETE — Build and Test 이후 추가 마무리
 - **Next Stage**: Operations (PLACEHOLDER)
-- **Status**: Build 성공(backend+frontend). 테스트 전부 통과(unit 34/34, integration/E2E 30/30, typecheck 0 오류, SSE 지연 ~0.02s). Ready for Operations. 사용자 승인 대기.
+- **Status**: Build/테스트 전부 통과 + Docker Compose 기동 검증 완료(8080 SPA + `/api` 프록시). Ready for Operations.

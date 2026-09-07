@@ -1,0 +1,38 @@
+# 테이블오더 서비스 — 로컬 데모용 Docker Compose (MVP)
+# frontend(nginx, :8080) ──/api──▶ backend(FastAPI, :8000) ──▶ SQLite(named volume)
+#
+# 실행:   docker compose up --build
+# 접속:   고객 http://localhost:8080/   ·   관리자 http://localhost:8080/admin
+# 종료:   docker compose down          (데이터 유지)   /   docker compose down -v (데이터 삭제)
+
+services:
+  backend:
+    build: ./backend
+    environment:
+      # 데모 기본값. 운영 시 반드시 긴 랜덤 문자열로 교체.
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production-please-use-a-long-random-secret}
+      # SQLite 파일을 영속 볼륨(/app/data)에 저장 → 컨테이너 재시작 후에도 데이터 유지
+      DATABASE_URL: sqlite:////app/data/table_order.db
+    volumes:
+      - backend_data:/app/data
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  backend_data:

@@ -52,7 +52,7 @@
 ## 발견사항 (비차단 — 계약 문서 보강 권장)
 1. `table_number`는 backend가 **문자열(str)** 로 처리 — 계약 §3.1/§3.6에 타입 미명시. frontend는 문자열 전송으로 통합 정상. → 차기 계약 마이너 버전에서 타입 명시 권장.
 2. 주문 상태 전이 그래프(되돌리기 허용: preparing↔pending, completed→preparing)는 backend 구현 소유이며 계약 미명세 → 문서화 권장.
-3. 루트 `docker-compose.yml` 부재(각 유닛 Dockerfile은 존재) → Operations 단계에서 오케스트레이션 추가 대상.
+3. ~~루트 `docker-compose.yml` 부재~~ → **해소됨**: 루트 `docker-compose.yml` 추가(backend :8000 + frontend nginx :8080, SQLite named volume, backend healthcheck 의존). `docker compose up --build`로 실제 기동·프록시(`/api`)·시딩(아리랑 주막, 메뉴 12) 검증 완료.
 
 ## Next Steps
 모든 빌드/테스트 통과. Operations 단계(배포 계획/모니터링)로 진행 가능.

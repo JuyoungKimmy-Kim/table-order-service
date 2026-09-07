@@ -31,6 +31,14 @@
 
 ---
 
+## Infrastructure Design — docker-compose (Build and Test 이후 마무리)
+**Timestamp**: 2026-09-07T15:10:00Z
+**User Input**: "construction 단계에서 추가로 진행해야할거"  (이후 선택: docker-compose.yml 작성 + Operations 단계로 진행)
+**AI Response**: CONSTRUCTION 필수 stage(계약/코드생성/Build and Test)는 모두 완료 상태임을 확인. 비차단 발견사항 중 유일한 실질 미산출물인 루트 docker-compose.yml을 작성. backend(:8000)+frontend(nginx :8080, /api 프록시)+SQLite named volume + backend healthcheck 구성. backend Dockerfile에 /app/data 생성 추가, 루트 README에 compose 실행법 작성. `docker compose config` OK → `docker compose up --build` 기동 성공(backend healthy) → 8080 SPA 200 + /api 프록시 경유 로그인/메뉴(아리랑 주막, 12) 검증 후 `docker compose down`. aidlc-state.md/summary 갱신.
+**Context**: CONSTRUCTION - Infrastructure Design (docker-compose) COMPLETE
+
+---
+
 ## Initial User Request
 **Timestamp**: 2026-09-07T00:00:00Z
 **User Input**: "테이블오더 서비스를 구축하고 싶습니다. 다음 파일들에서 요구사항을 읽어주세요:
