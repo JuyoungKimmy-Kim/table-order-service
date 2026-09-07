@@ -73,18 +73,17 @@
 ### 🟢 CONSTRUCTION PHASE
 - **Execution mode**: 공통 API 계약 우선 확정 → backend/frontend **병렬** 진행 → Build and Test 통합
 - [x] Shared API Contract (contract-first Functional Design) - APPROVED (frozen baseline)
-- [ ] Functional Design - EXECUTE (per-unit, **외부 병렬 개발**: backend·frontend 각자 환경)
-- [ ] NFR Requirements - EXECUTE (per-unit)
-- [ ] NFR Design - EXECUTE (per-unit)
-- [ ] Infrastructure Design - EXECUTE (per-unit, 경량)
-- [ ] Code Generation - EXECUTE (per-unit)
+- [x] Code Generation — Unit 1 `backend` — Part 1 (Planning) APPROVED
+- [x] Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE (34 pytest passed, E2E smoke OK) — awaiting review
+- [ ] Code Generation — Unit 2 `frontend` (per-unit)
 - [ ] Build and Test - EXECUTE
+- **Note**: Functional Design/NFR/Infra는 frozen shared-contract에 통합 반영되어 backend 생성 시 별도 stage 없이 계약을 정확히 구현함. frontend는 별도로 진행 예정.
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations - PLACEHOLDER
 
 ## Current Status
-- **Lifecycle Phase**: INCEPTION
-- **Current Stage**: Workflow Planning (awaiting approval)
-- **Next Stage**: Application Design
-- **Status**: Ready to proceed pending approval
+- **Lifecycle Phase**: CONSTRUCTION
+- **Current Stage**: Code Generation — Unit 1 `backend` — Part 2 (Generation) COMPLETE — awaiting code review/approval
+- **Next Stage**: Unit 2 `frontend` Code Generation → Build and Test
+- **Status**: backend/ 전체 생성(app 17파일 + 라우터 7 + 테스트 7), 34 pytest 통과, E2E 스모크 확인. 사용자 리뷰 대기.
