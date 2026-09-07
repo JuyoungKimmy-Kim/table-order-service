@@ -73,12 +73,20 @@
 ### 🟢 CONSTRUCTION PHASE
 - **Execution mode**: 공통 API 계약 우선 확정 → backend/frontend **병렬** 진행 → Build and Test 통합
 - [x] Shared API Contract (contract-first Functional Design) - APPROVED (frozen baseline)
-- [ ] Functional Design - EXECUTE (per-unit, **외부 병렬 개발**: backend·frontend 각자 환경)
-- [ ] NFR Requirements - EXECUTE (per-unit)
-- [ ] NFR Design - EXECUTE (per-unit)
-- [ ] Infrastructure Design - EXECUTE (per-unit, 경량)
-- [ ] Code Generation - EXECUTE (per-unit)
-- [ ] Build and Test - EXECUTE
+- **Frontend Unit (Unit 2) — this track**:
+  - [x] Functional Design (frontend) - frontend-components.md 블루프린트
+  - [x] Code Generation (frontend) - `frontend/` React+Vite+TS+Tailwind 앱 구현 (US-C1~C5, US-A1~A7 전부), build/typecheck 통과
+  - NFR/Infra Design: 경량 — 결정이 이미 계약/기술스택에 반영(로컬 MVP), 별도 문서 생략
+- **Backend Unit (Unit 1)**: 외부 병렬 트랙에서 진행 (별도 환경)
+- [ ] Build and Test - EXECUTE (backend·frontend 통합 후)
+
+### Frontend Unit 구현 요약 (frontend/)
+- Stack: React 18 + Vite 5 + TypeScript(strict) + Tailwind CSS, React Context(Auth/Cart), fetch 기반 ApiClient(REST + SSE)
+- 라우팅: 고객 `/`, 관리자 `/admin/*` (대시보드/메뉴/테이블)
+- SSE: EventSource 대신 fetch+ReadableStream 파서(헤더 인증), 4개 이벤트 증분 갱신 + 재연결 시 dashboard 재동기화
+- 개발 연결: Vite proxy `/api` → `:8000` / 배포: nginx `/api` → `backend:8000` (SSE 버퍼링 off)
+- 자동화: 상호작용 요소 `data-testid` 부여
+- 검증: `npm run build` 통과(62 모듈), dev 서버 HTTP 200
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations - PLACEHOLDER
